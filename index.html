@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="An automatic method to remove hair from real portrait images.">
+  <meta name="keywords" content="Face editing, Hair editing, StyleGAN">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HairMapper: Removing Hair from Portraits Using GANs</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/1f638.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://onethousandwu.com/3DPortraitGAN.github.io/">
+                3DPortraitGAN
+            </a>
+          <a class="navbar-item" href="https://onethousandwu.com/LPFF.github.io/">
+            LPFF
+          </a>
+          <a class="navbar-item" href="https://onethousandwu.com/doublechinremoval.github.io/">
+            DoubleChin removal
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title"><span class="dnerf">HairMapper</span>: <br />Removing Hair from Portraits Using GANs</h1>
+           <div class="is-size-3 publication-conf">
+
+            <span><b>CVPR 2022</b></span>
+            </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://onethousandwu.com/">Yiqian Wu</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.yongliangyang.net/">Yongliang Yang</a><sup>3</sup>,</span>
+             <span class="author-block">
+              <a href="http://www.cad.zju.edu.cn/home/jin/">Xiaogang Jin*</a><sup>1,2</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>State Key Lab of CAD&CG, Zhejiang University,</span>
+            <span class="author-block"><sup>2</sup>ZJU-Tencent Game and Intelligent Graphics InnovationTechnology Joint Lab, </span>
+            <span class="author-block"><sup>3</sup>University of Bath</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://openaccess.thecvf.com/content/CVPR2022/html/Wu_HairMapper_Removing_Hair_From_Portraits_Using_GANs_CVPR_2022_paper.html"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="http://www.cad.zju.edu.cn/home/jin/cvpr2022/demo.mp4"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/oneThousand1000/HairMapper"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://github.com/oneThousand1000/non-hair-FFHQ"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <figure class="image">
+            <img src="./static/images/teaser.png" alt="teaser">
+          </figure>
+      <h2 class="subtitle has-text-centered">
+        Given portrait images with their faces partially occluded by hair, our method is
+        able to generate portraits without hair while preserving facial identity. After
+        removing the effects of hair, the resulting portrait images can be well employed
+        in hair design by simply blending the clean face with some hairstyle templates
+        without the interference from existing hair. Our results can also benefit 3D
+        face reconstruction by using the clean face textures generated by our method
+        (rows 2 and 4) in contrast to the results of the original images (rows 1 and 3).
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+             Removing hair from portrait images is challenging due to the complex occlusions
+            between hair and face, as well as the lack of paired portrait data with/without
+            hair.
+          </p>
+          <p>
+            To this end, we present a dataset and a baseline method for removing hair from
+            portrait images using generative adversarial networks (GANs). Our core idea is
+            to train a fully connected network $HairMapper$ to find the direction of hair
+            removal in the latent space of StyleGAN for the training stage. We develop a new
+            separation boundary and diffuse method to generate paired training data for males,
+            and a novel ''female-male-bald'' pipeline for paired data of females.
+          </p>
+          <p>
+            Experiments show that our method can naturally deal with portrait images with
+            variations on gender, age, etc. We validate the superior performance of our
+            method by comparing it to state-of-the-art methods through extensive experiments
+            and user studies. We also demonstrate its applications in hair design and 3D
+            face reconstruction.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/UNtgpphVR2w?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+
+        <!-- Pipeline. -->
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Pipeline</h2>
+        <div class="content has-text-justified">
+          <p>
+            The pipeline of our HairMapper.</p>
+          <figure class="image">
+            <img src="./static/images/pipeline.png" alt="Pipeline">
+          </figure>
+        </div>
+      </div>
+
+
+
+    <!--/ Pipeline. -->
+
+
+  </div>
+</section>
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@InProceedings{Wu_2022_CVPR,
+    author    = {Wu, Yiqian and Yang, Yong-Liang and Jin, Xiaogang},
+    title     = {HairMapper: Removing Hair From Portraits Using GANs},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    month     = {June},
+    year      = {2022},
+    pages     = {4227-4236}
+}
+    </code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+           This page is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">source code</a>. We thank the author for sharing it.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
